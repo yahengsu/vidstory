@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yaheng.test.LoginActivity">
+    
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5pt"
+        android:hint="E-mail Address"
+        android:id="@+id/emailLoginActivity"
+        android:paddingBottom="10pt"
+        android:paddingTop="20pt"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5pt"
+        android:hint="Password"
+        android:id="@+id/passwordLoginActivity"
+        android:paddingBottom="10pt"
+        android:layout_below="@id/emailLoginActivity"
+
+        />
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googleSignInButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10pt"
+        android:layout_below="@id/passwordLoginActivity"/>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/fb_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/googleSignInButton"
+        android:layout_alignLeft="@+id/googleSignInButton"
+        android:layout_alignStart="@+id/googleSignInButton"
+        android:layout_alignRight="@+id/googleSignInButton"
+        android:layout_alignEnd="@+id/googleSignInButton" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginButtonLoginActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5pt"
+        android:text="Sign in"
+        />
+
+
+</RelativeLayout>
