@@ -1,6 +1,7 @@
 package com.example.yaheng.test;
 
 import android.content.Intent;
+import android.graphics.Camera;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,6 +59,9 @@ public class LoginActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButtonLoginActivity);
         SignInButton signInButton = findViewById(R.id.googleSignInButton);
         signInButton.setSize(SignInButton.SIZE_WIDE);
+        final String email = emailEditText.getText().toString();
+        final String password = passwordEditText.getText().toString();
+
 
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -77,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook:onSuccess:" + loginResult);
                         handleFacebookAccessToken(loginResult.getAccessToken());
-                        Intent i = new Intent(view.getContext(), MainActivity.class);
+                        Intent i = new Intent(view.getContext(), CameraSensor.class);
                         startActivity(i);
                     }
 
@@ -108,14 +112,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //Email Login
-        final String email = emailEditText.getText().toString();
-        final String password = passwordEditText.getText().toString();
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 signIn(email, password);
-                Intent i = new Intent(view.getContext(), MainActivity.class);
-                startActivity(i);
+
             }
         });
 
@@ -125,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+
                     Log.d(FACEBOOK_LOGIN, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -197,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent i = new Intent(LoginActivity.this, CameraSensor.class);
                             startActivity(i);
 
                         } else {
@@ -222,11 +225,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         mAuth.addAuthStateListener(mAuthListener);
+        CameraSensor a = new CameraSensor();
 
     }
 
+
+
     @Override public void onStop(){
         super.onStop();
+        FirebaseAuth.getInstance().signOut();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
@@ -286,6 +293,12 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
     }
 
 }

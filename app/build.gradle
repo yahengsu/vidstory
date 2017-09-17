@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.example.yaheng.test"
-        minSdkVersion 15
+        minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -25,9 +25,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:design:26.+'
+    compile "org.mp4parser:isoparser:1.9.27"
+    compile 'com.android.support:design:26.1.0'
+    compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'com.google.firebase:firebase-core:11.2.2'
     compile 'com.google.firebase:firebase-auth:11.2.2'
     compile 'com.google.firebase:firebase-storage:11.2.2'
@@ -37,6 +37,8 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     testCompile 'junit:junit:4.12'
 }
+
+
 
 
 

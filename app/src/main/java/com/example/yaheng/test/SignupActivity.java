@@ -71,10 +71,9 @@ public class SignupActivity extends AppCompatActivity {
 
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
-                createAccount(emailAutoCompleteTextView.getText().toString(),passwordEditText.getText().toString());
-                Intent i = new Intent(view.getContext(), LoginActivity.class);
-                startActivity(i);
+            public void onClick(final View view) {
+                createAccount(emailAutoCompleteTextView.getText().toString(),passwordEditText.getText().toString(), view);
+
             }
         });
 
@@ -88,7 +87,7 @@ public class SignupActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
-    private void createAccount(String email, String password){
+    private void createAccount(String email, String password,final View view){
         Log.d(TAG, "createAccount:" + email);
         if (!validateForm()){
             return;
@@ -99,9 +98,10 @@ public class SignupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            Intent i = new Intent(view.getContext(), LoginActivity.class);
+                            startActivity(i);
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
+                        } else if (!task.isSuccessful()){
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(SignupActivity.this, "Authentication failed.",
@@ -135,5 +135,11 @@ public class SignupActivity extends AppCompatActivity {
         return valid;
     }
 
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
 }
 

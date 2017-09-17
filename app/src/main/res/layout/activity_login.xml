@@ -12,6 +12,7 @@
         android:layout_margin="5pt"
         android:hint="E-mail Address"
         android:id="@+id/emailLoginActivity"
+        android:inputType="textEmailAddress"
         android:paddingBottom="10pt"
         android:paddingTop="20pt"
         />
@@ -21,6 +22,7 @@
         android:layout_margin="5pt"
         android:hint="Password"
         android:id="@+id/passwordLoginActivity"
+        android:inputType="textPassword"
         android:paddingBottom="10pt"
         android:layout_below="@id/emailLoginActivity"
 
@@ -51,6 +53,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="5pt"
         android:text="Sign in"
+        android:background="@color/intro"
         />
 
 
